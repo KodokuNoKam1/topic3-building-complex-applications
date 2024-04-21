@@ -1,13 +1,14 @@
 package com.topic3.android.reddit.appdrawer
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,13 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.topic3.android.reddit.R
-
 import com.topic3.android.reddit.theme.RedditThemeSettings
-
 /**
  * Представляет корневую композицию для панели приложений, используемой на экранах.
  */
@@ -36,26 +37,46 @@ fun AppDrawer(
       .background(color = MaterialTheme.colors.surface)
   ) {
     AppDrawerHeader()
-
     AppDrawerBody(closeDrawerAction)
-
     AppDrawerFooter(modifier)
   }
 }
-
 /**
  * Представляет заголовок drawer приложения со значком и названием приложения.
  */
 @Composable
 private fun AppDrawerHeader() {
   //TODO add your code here
+  Column(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalAlignment = Alignment.CenterHorizontally
+  ) {
+    Image(
+      imageVector = Icons.Filled.AccountCircle,
+      colorFilter = ColorFilter.tint(Color.LightGray),
+      modifier = Modifier
+        .padding(16.dp)
+        .size(50.dp),
+      contentScale = ContentScale.Fit,
+      alignment = Alignment.Center,
+      contentDescription = stringResource(id = R.string.account)
+
+    )
+    Text(text = stringResource(id = R.string.default_username),
+      color = MaterialTheme.colors.primaryVariant)
+  }
+  Divider(
+    color = MaterialTheme.colors.onSurface.copy(alpha = .2f),
+    modifier = Modifier.padding(
+      start = 16.dp, end = 16.dp, top = 16.dp
+    )
+  )
 }
 
 @Composable
 fun ProfileInfo() {
   //TODO add your code here
 }
-
 @Composable
 private fun ProfileInfoItem(
   iconAsset: ImageVector,
@@ -65,7 +86,6 @@ private fun ProfileInfoItem(
 ) {
   //TODO add your code here
 }
-
 /**
  * Представляет действия drawer приложения:
  * * экранная навигация
@@ -75,7 +95,6 @@ private fun ProfileInfoItem(
 private fun AppDrawerBody(closeDrawerAction: () -> Unit) {
   //TODO add your code here
 }
-
 /**
  * Представляет компонент в панели приложений, который пользователь может использовать для смены экрана.
  */
@@ -87,11 +106,9 @@ private fun ScreenNavigationButton(
   modifier: Modifier = Modifier
 ) {
   val colors = MaterialTheme.colors
-
   val surfaceModifier = modifier
     .padding(start = 8.dp, top = 8.dp, end = 8.dp)
     .fillMaxWidth()
-
   Surface(
     modifier = surfaceModifier,
     color = colors.surface,
@@ -122,7 +139,6 @@ private fun ScreenNavigationButton(
     }
   }
 }
-
 /**
  * Представляет компонент настройки в панели приложений.
  */
@@ -130,11 +146,9 @@ private fun ScreenNavigationButton(
 private fun AppDrawerFooter(modifier: Modifier = Modifier) {
   //TODO add your code here
 }
-
 private fun changeTheme() {
   RedditThemeSettings.isInDarkTheme.value = RedditThemeSettings.isInDarkTheme.value.not()
 }
-
 @Preview
 @Composable
 private fun ProfileInfoItemPreview() {
